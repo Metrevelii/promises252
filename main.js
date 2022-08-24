@@ -55,21 +55,40 @@ const getJSON = function (url, errorMsg = 'Something went wrong') {
 
 // SIMPLIFIED VERSION
 
-const getCountryData = function (country) {
-    // Country 1
-    fetch(`https://restcountries.com/v2/name/${country}`)
-    .then((response) => response.json())
-    .then(data => {
-        renderCountry(data[0]);
-        const neighbour = data[0].borders[0]
+// const getCountryData = function (country) {
+//     // Country 1
+//     fetch(`https://restcountries.com/v2/name/${country}`)
+//     .then((response) => response.json())
+//     .then(data => {
+//         renderCountry(data[0]);
+//         const neighbour = data[0].borders[0]
 
-        if (!neighbour) return;
-        // Country 2
-        return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
-    })
-    .then(response => response.json())
-    .then(data => renderCountry(data, 'neighbour')); 
-};
+//         if (!neighbour) return;
+//         // Country 2
+//         return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+//     })
+//     .then(response => response.json())
+//     .then(data => renderCountry(data, 'neighbour')); 
+// };
 
-getCountryData('georgia');
+// getCountryData('georgia');
 // getCountryData('austria');
+
+
+// 262 Async/Await
+// Fetching API without chaining Promises
+
+const whereAmI = async function (country) {
+    // inside async function we can have one or more await statements
+    // ITS same as using .then(res => console.log(res)) after fetch
+    const res = await fetch(`https://restcountries.com/v2/name/${country}`);
+    console.log(res);
+
+    const data = await res.json();
+    console.log(data);
+    renderCountry(data[0]);
+
+}
+whereAmI('portugal');
+
+console.log('First')
